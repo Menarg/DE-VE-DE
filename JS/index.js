@@ -1,26 +1,23 @@
-import { db } from "./modules/firebase";
-import { 
-    addDoc, collection, getDocs, 
-    where, query, deleteDoc,
-    doc, updateDoc 
-} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { collection, getDocs, addDoc, query, where, updateDoc, increment, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { db } from "./modules/firebase.js";
 
 const addMovieButton = document.querySelector('#searchbar-button');
 const addMovieText = document.querySelector('#searchbar-input');
 
 async function addMovie(movie) {
     try {
-        // Skapar en ny note i databasen där man skickar med i vilken collection den ska skapas samt vilka fält som ska finnas med
-
         await addDoc(collection(db, 'movies'), movie)
     } catch (error) {
         console.log(`ERROR: ${error}`);
     }
-}
+};
 
 addMovieButton.addEventListener('click', () => {
     const movie = {
-        title: document.querySelector('#searchbar-input').value,
+        title: addMovieText.value,
+        genre: '',
+        release: '',
+        watched: false,
         createdAt: new Date().toLocaleDateString()
       }
 
