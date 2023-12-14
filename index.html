@@ -8,13 +8,29 @@
 </head>
 <body>
     <div class="wrapper">
+
         <section class="searchbar" id="searchbar">
-            <label for="searchbar-input">Search </label>
-            <input id="searchbar-input" class="searchbar-input" type="text" placeholder="Search Movie Title">
-            <button id="searchbar-button" class="searchbar-button">Search</button>
+            <label for="searchbar_input">Search </label>
+            <input id="searchbar_input" class="searchbar_input" type="text" placeholder="Search Movie Title">
+            <button id="searchbar_button" class="searchbar_button">Search</button>
         </section>
 
-        <section class="moviesList"></section>
+        <section class="searchResults hidden"></section>
+
+        <button class="add-new-movie" id="add-new-movie">Add New Movie</button>
+        <section class="add-movie hidden" id="add-movie">
+            <label for="add-movie_title">Title </label>
+            <input id="add-movie_title" class="add-movie_title" type="text" placeholder="Movie Title">
+            <label for="add-movie_genre">Genre </label>
+            <input id="add-movie_genre" class="add-movie_genre" type="text" placeholder="Movie Genre">
+            <label for="add-movie_release">Release Date </label>
+            <input id="add-movie_release" class="add-movie_release" type="date" placeholder="YYYY-MM-DD">
+            <label for="add-movie_watched">Watched </label>
+            <input id="add-movie_watched" class="add-movie_watched" type="checkbox">
+            <button id="add-movie_button" class="add-movie_button">Add Movie</button>
+        </section>
+
+        <section id="moviesList" class="moviesList"></section>
 
     </div>
 <script src="JS/index.js" type="module"></script>

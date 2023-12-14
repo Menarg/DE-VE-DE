@@ -8,3 +8,19 @@
     width: 100vw;
     background-color: #d8e9f9;
 }
+
+.hidden {
+    display: none;
+}
+
+section {
+    padding: 3rem;
+}
+
+.add-new-movie {
+    margin-left: 3rem;
+}
+
+.moviesList_movie {
+    margin-bottom: 1rem;
+}
