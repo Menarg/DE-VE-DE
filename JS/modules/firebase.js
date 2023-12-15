@@ -1,4 +1,4 @@
-// Database info in module for security.
+// Database info in module because it doesn't need to be reused
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
