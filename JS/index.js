@@ -1,7 +1,7 @@
 import { collection, getDocs, addDoc, deleteDoc, updateDoc, doc, query, where} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { db } from "./modules/firebase.js";
 
-// Tror ja kan behöva en till genomgång av hur man delar upp saker, är osäker och har inte vågat mer
+// Tror ja kan behöva en till genomgång av hur man delar upp programmet i filer, är osäker och har inte vågat mer
 
 //searchbar
 const searchbarButton = document.querySelector('#searchbar_button');
@@ -41,11 +41,10 @@ async function searchMovies(searchbarText) {
     } catch (error) { 
         console.log(error);
     }   
-    
 }
 
 async function displaySearch(formatedResults){ // I feel very dumb
-    console.log(formatedResults.movies);
+    // console.log(formatedResults.movies);
     // skapar en article tag för varje film
     const articleElem = document.createElement('article');
     articleElem.setAttribute("class", "searchList_movie");
@@ -88,6 +87,11 @@ async function clean() {
     while (moviesListElem.hasChildNodes()) { 
         moviesListElem.removeChild(moviesListElem.children[0]);
     }
+}
+
+async function cleanSearch() {
+    // rensar search listan
+    console.log("cleaning search");
     while (searchListElem.hasChildNodes()) { 
         searchListElem.removeChild(searchListElem.children[0]);
     }
@@ -165,9 +169,6 @@ function createMovieElement(moviesArray) {
     });
 }
 
-// Program, START!
-displayMovies();
-
 async function displayMovies() {
     await clean();
     const movies = await getMovies();
@@ -179,7 +180,7 @@ async function displayMovies() {
 }
 
 async function displayMoviesSearch() {
-    await clean();
+    await cleanSearch();
     const searchbarText = document.querySelector('#searchbar_input');
     const formatedResults = await searchMovies(searchbarText);
     for ( const movies of formatedResults) {
@@ -187,6 +188,9 @@ async function displayMoviesSearch() {
     }
     searchListElem.classList.toggle('hidden');
 }
+
+// Program, START!
+displayMovies();
 
 addMovieButton.addEventListener('click', () => {
     const movie = {
