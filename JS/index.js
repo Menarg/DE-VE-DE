@@ -88,6 +88,9 @@ async function clean() {
     while (moviesListElem.hasChildNodes()) { 
         moviesListElem.removeChild(moviesListElem.children[0]);
     }
+    while (searchListElem.hasChildNodes()) { 
+        searchListElem.removeChild(searchListElem.children[0]);
+    }
 }
 
 async function getMovies() {
@@ -122,6 +125,7 @@ async function updateMovie(moviesArray) {
         }) 
     } catch (error) { console.log(error); }
     displayMovies();
+    displayMoviesSearch();
 }
 
 async function deleteMovie(moviesArray) {
@@ -130,6 +134,7 @@ async function deleteMovie(moviesArray) {
         await deleteDoc(doc(db, 'movies', moviesArray.id));
     } catch (error) { console.log(error); }
     displayMovies();
+    displayMoviesSearch();
 }
 
 function createMovieElement(moviesArray) {
@@ -173,7 +178,9 @@ async function displayMovies() {
     }
 }
 
-async function displayMoviesSearch(searchbarText) {
+async function displayMoviesSearch() {
+    await clean();
+    const searchbarText = document.querySelector('#searchbar_input');
     const formatedResults = await searchMovies(searchbarText);
     for ( const movies of formatedResults) {
         displaySearch(movies);
@@ -200,6 +207,5 @@ addNewMovieButton.addEventListener('click', () => {
 });
 
 searchbarButton.addEventListener('click', () => {
-    const searchbarText = document.querySelector('#searchbar_input');
-    displayMoviesSearch(searchbarText);
+    displayMoviesSearch();
 })
