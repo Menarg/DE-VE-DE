@@ -17,31 +17,15 @@ const addMovieWatched = document.querySelector('#add-movie_watched');
 const addNewMovieButton = document.querySelector('#add-new-movie');
 const addNewMovieElem = document.querySelector('#add-movie');
 
-// Display section
+// Display sections
 const moviesListElem = document.querySelector('#moviesList');
 const searchListElem = document.querySelector('#searchResults')
 
-async function searchMovies(searchbarText) {
-    const search = searchbarText.value;
-
-    try {
-        const searchQuery = query(collection(db, 'movies'), where('title', '==', search.toLowerCase()));
-        const results = await getDocs(searchQuery);
-
-        const formatedResults = [];
-
-        results.forEach((result) => {
-            const formatedResult = {
-                id: result.id,
-                movies: result.data()
-            }
-            formatedResults.push(formatedResult);
-        });
-        return formatedResults;
-    } catch (error) { 
-        console.log(error);
-    }   
-}
+// importing functions from separate files
+import { searchMovies } from "./modules/searchMovies.js";
+import { getMovies } from "./modules/getMovies.js";
+import { clean } from "./modules/clean.js";
+import { cleanSearch } from "./modules/cleanSearch.js";
 
 async function displaySearch(formatedResults){ // I feel very dumb
     // console.log(formatedResults.movies);
@@ -76,47 +60,10 @@ async function addMovie(movie) {
     try {
         await addDoc(collection(db, 'movies'), movie)
     } catch (error) {
-        console.log(`ERROR: ${error}`);
+        console.log(error);
     }
     displayMovies();
 };
-
-async function clean() {
-    // tar bort gamla listan om den finns
-    console.log("cleaning");
-    while (moviesListElem.hasChildNodes()) { 
-        moviesListElem.removeChild(moviesListElem.children[0]);
-    }
-}
-
-async function cleanSearch() {
-    // rensar search listan
-    console.log("cleaning search");
-    while (searchListElem.hasChildNodes()) { 
-        searchListElem.removeChild(searchListElem.children[0]);
-    }
-}
-
-async function getMovies() {
-    try {
-        const moviesArray = [];
-
-        // fyller på listan från vår databas
-        const moviesList = await getDocs(collection(db, 'movies')); 
-        moviesList.forEach((movies) => {
-            const movie = {
-                movies: movies.data(),
-                id: movies.id
-            }
-            moviesArray.push(movie);
-            // console.log(movie);
-        });
-        // console.log(moviesArray);
-        return moviesArray;
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 async function updateMovie(moviesArray) {
 
@@ -181,12 +128,12 @@ async function displayMovies() {
 
 async function displayMoviesSearch() {
     await cleanSearch();
-    const searchbarText = document.querySelector('#searchbar_input');
-    const formatedResults = await searchMovies(searchbarText);
+
+    const formatedResults = await searchMovies();
+    console.log(formatedResults);
     for ( const movies of formatedResults) {
         displaySearch(movies);
     }
-    searchListElem.classList.toggle('hidden');
 }
 
 // Program, START!
@@ -202,7 +149,7 @@ addMovieButton.addEventListener('click', () => {
     addMovie(movie);
     addNewMovieButton.classList.toggle('hidden');
     addNewMovieElem.classList.toggle('hidden');
-    getMovies();
+    displayMovies();
 });
 
 addNewMovieButton.addEventListener('click', () => {
