@@ -1,5 +1,7 @@
+// exported because it doesn't need any infomartion from anything else.
+
 const moviesListElem = document.querySelector('#moviesList');
-const searchListElem = document.querySelector('#searchResults')
+const searchListElem = document.querySelector('#searchResults');
 
 async function clean() {
     // tar bort gamla listan om den finns

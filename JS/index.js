@@ -25,16 +25,15 @@ const searchListElem = document.querySelector('#searchResults');
 import { searchMovies } from "./modules/searchMovies.js";
 import { getMovies } from "./modules/getMovies.js";
 import { clean, cleanSearch  } from "./modules/clean.js";
-// import { cleanSearch } from "./modules/cleanSearch.js";
 
-async function displaySearch(formatedResults){ // I feel very dumb
+async function displaySearch(formatedResults){ // I feel very dumb for having to make another of these
     // console.log(formatedResults.movies);
     // skapar en article tag för varje film
     const articleElem = document.createElement('article');
     articleElem.setAttribute("class", "searchList_movie");
 
     // console.log(moviesArray.movies.title);
-    //fyller article taggen
+    // fyller article taggen
     const textElem = document.createElement('p');
     textElem.innerText = `TITLE: ${formatedResults.movies.title.toUpperCase()} - GENRE: ${formatedResults.movies.genre.toUpperCase()} - RELEASE DATE: ${formatedResults.movies.release}`;
     const watchedElem = document.createElement('input');
@@ -61,9 +60,6 @@ function error() {
     error.innerText = "That movie is already in your list.";
     searchListElem.append(error);
     console.error("error: That movie is already in your list");
-    setTimeout(async () => {
-        cleanSearch();
-    }, 5000); // delay på rensning
 }
 
 async function checkMovieExists(movie) {
@@ -81,7 +77,7 @@ async function checkMovieExists(movie) {
             formatedResults.push(formatedResult);
         });
 
-        console.log(formatedResults);
+        // console.log(formatedResults);
         if (formatedResults.length == 0) {
             addMovie(movie);
         } else {
@@ -90,7 +86,7 @@ async function checkMovieExists(movie) {
     } catch (error) { 
         console.log(error);
     }  
-};
+}
 
 async function addMovie(movie) {
     try {
@@ -99,7 +95,7 @@ async function addMovie(movie) {
         console.log(error);
     }
     displayMovies();
-};
+}
 
 async function updateMovie(moviesArray) {
 
@@ -172,9 +168,6 @@ async function displayMoviesSearch() {
     }
 }
 
-// Program, START!
-displayMovies();
-
 addMovieButton.addEventListener('click', () => {
     const movie = {
         title: addMovieTitle.value.toLowerCase(),
@@ -196,4 +189,7 @@ addNewMovieButton.addEventListener('click', () => {
 
 searchbarButton.addEventListener('click', () => {
     displayMoviesSearch();
-})
+});
+
+// Program, START!
+displayMovies();

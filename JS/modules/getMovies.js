@@ -1,4 +1,4 @@
-// exported because it works, and it's cleaner ? :)
+// exported because it exports information
 
 import { collection, getDocs, addDoc, deleteDoc, updateDoc, doc, query, where} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { db } from "./firebase.js";
