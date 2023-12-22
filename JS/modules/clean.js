@@ -1,4 +1,5 @@
 const moviesListElem = document.querySelector('#moviesList');
+const searchListElem = document.querySelector('#searchResults')
 
 async function clean() {
     // tar bort gamla listan om den finns
@@ -8,4 +9,12 @@ async function clean() {
     }
 }
 
-export { clean }
+async function cleanSearch() {
+    // rensar search listan
+    console.log("cleaning search");
+    while (searchListElem.hasChildNodes()) { 
+        searchListElem.removeChild(searchListElem.children[0]);
+    }
+}
+
+export { clean, cleanSearch }

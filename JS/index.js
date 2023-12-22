@@ -19,13 +19,13 @@ const addNewMovieElem = document.querySelector('#add-movie');
 
 // Display sections
 const moviesListElem = document.querySelector('#moviesList');
-const searchListElem = document.querySelector('#searchResults')
+const searchListElem = document.querySelector('#searchResults');
 
 // importing functions from separate files
 import { searchMovies } from "./modules/searchMovies.js";
 import { getMovies } from "./modules/getMovies.js";
-import { clean } from "./modules/clean.js";
-import { cleanSearch } from "./modules/cleanSearch.js";
+import { clean, cleanSearch  } from "./modules/clean.js";
+// import { cleanSearch } from "./modules/cleanSearch.js";
 
 async function displaySearch(formatedResults){ // I feel very dumb
     // console.log(formatedResults.movies);
