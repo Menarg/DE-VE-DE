@@ -26,7 +26,7 @@ import { searchMovies } from "./modules/searchMovies.js";
 import { getMovies } from "./modules/getMovies.js";
 import { clean, cleanSearch  } from "./modules/clean.js";
 
-async function displaySearch(formatedResults){ // I feel very dumb for having to make another of these
+async function displaySearch(formatedResults){ // I feel very dumb for having to make another of these, unsure how to split up these functions that recieve information from other things into separate files
     // console.log(formatedResults.movies);
     // skapar en article tag för varje film
     const articleElem = document.createElement('article');
