@@ -56,6 +56,42 @@ async function displaySearch(formatedResults){ // I feel very dumb
     });
 }
 
+function error() {
+    const error = document.createElement('p');
+    error.innerText = "That movie is already in your list.";
+    searchListElem.append(error);
+    console.error("error: That movie is already in your list");
+    setTimeout(async () => {
+        cleanSearch();
+    }, 5000); // delay på rensning
+}
+
+async function checkMovieExists(movie) {
+    try {
+        const searchQuery = query(collection(db, 'movies'), where('title', '==', movie.title.toLowerCase()));
+        const results = await getDocs(searchQuery);
+
+        const formatedResults = [];
+
+        results.forEach((result) => {
+            const formatedResult = {
+                id: result.id,
+                movies: result.data()
+            }
+            formatedResults.push(formatedResult);
+        });
+
+        console.log(formatedResults);
+        if (formatedResults.length == 0) {
+            addMovie(movie);
+        } else {
+            error();
+        }
+    } catch (error) { 
+        console.log(error);
+    }  
+};
+
 async function addMovie(movie) {
     try {
         await addDoc(collection(db, 'movies'), movie)
@@ -146,10 +182,11 @@ addMovieButton.addEventListener('click', () => {
         release: addMovieRelease.value,
         watched: addMovieWatched.checked,
       }
-    addMovie(movie);
-    addNewMovieButton.classList.toggle('hidden');
-    addNewMovieElem.classList.toggle('hidden');
-    displayMovies();
+    checkMovieExists(movie);
+    // addMovie(movie);
+    // addNewMovieButton.classList.toggle('hidden');
+    // addNewMovieElem.classList.toggle('hidden');
+    // displayMovies();
 });
 
 addNewMovieButton.addEventListener('click', () => {
